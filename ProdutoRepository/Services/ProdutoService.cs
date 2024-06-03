@@ -4,7 +4,7 @@ using ProdutoRepositoryModelo.Services.Interfaces;
 
 namespace ProdutoRepositoryModelo.Services
 {
-    public class ProdutoService : Service<Produto>, IProdutoService
+    public class ProdutoService : BaseService<Produto>, IProdutoService
     {
         public ProdutoService(IProdutoRepository produtoRepository) : base(produtoRepository)
         {
