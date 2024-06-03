@@ -3,11 +3,11 @@ using ProdutoRepositoryModelo.Services.Interfaces;
 
 namespace ProdutoRepositoryModelo.Services
 {
-    public class Service<T> : IService<T> where T : class
+    public class BaseService<T> : IService<T> where T : class
     {
         private readonly IRepository<T> _repository;
 
-        public Service(IRepository<T> repository)
+        public BaseService(IRepository<T> repository)
         {
             _repository = repository;
         }
@@ -25,16 +25,19 @@ namespace ProdutoRepositoryModelo.Services
         public async Task AddAsync(T entity)
         {
             await _repository.AddAsync(entity);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
             await _repository.UpdateAsync(entity);
+            await _repository.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
             await _repository.DeleteAsync(id);
+            await _repository.SaveChangesAsync();
         }
     }
 }

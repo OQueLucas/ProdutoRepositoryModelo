@@ -28,13 +28,11 @@ namespace ProdutoRepositoryModelo.Repositories
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -43,8 +41,12 @@ namespace ProdutoRepositoryModelo.Repositories
             if (entity != null)
             {
                 _dbSet.Remove(entity);
-                await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
