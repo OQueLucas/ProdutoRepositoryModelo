@@ -41,8 +41,13 @@ namespace ProdutoRepositoryModelo.Controllers
         public async Task<ActionResult> Update(int id, Produto produto)
         {
             if (id != produto.Id) return BadRequest();
+
+            var produtoExists = await _produtoService.GetByIdAsync(id);
+            if (produtoExists == null) return NotFound();
+
             await _produtoService.UpdateAsync(produto);
-            return NoContent();
+
+            return Ok(produto);
         }
 
         [HttpDelete("{id}")]

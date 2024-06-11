@@ -2,7 +2,7 @@
 
 namespace ProdutoRepositoryModelo.Entities
 {
-    public class Produto
+    public class Produto : BaseEntity
     {
         public Produto(string nome, string descricao, decimal preco, int estoque, string categoria, DateTime dataCadastro)
         {
@@ -13,9 +13,6 @@ namespace ProdutoRepositoryModelo.Entities
             Categoria = categoria;
             DataCadastro = dataCadastro;
         }
-
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
