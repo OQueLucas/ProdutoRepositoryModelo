@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProdutoRepositoryModelo.Data;
+using ProdutoRepositoryModelo.Entities;
 using ProdutoRepositoryModelo.Interfaces;
 
 namespace ProdutoRepositoryModelo.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly ProdutoContext _context;
         private readonly DbSet<T> _dbSet;
@@ -21,6 +22,11 @@ namespace ProdutoRepositoryModelo.Repositories
         }
 
         public async Task<T> GetByIdAsync(int id)
+        {
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(entity => entity.Id == id);
+        }
+
+        public async Task<T> FindByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
